@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import json
-import SSR_Detect
+import GetSsrInfo
 import time
 import os
 
@@ -92,7 +92,7 @@ def DetectSsrServer():
 def updateSsrInfo():
     pass
 def GetSsrInfo():
-    SSRinfo = SSR_Detect.CatchSSRinfo()
+    SSRinfo = SSR_Detect.GetSSRinfo()
     return SSRinfo
 currConfigIndex = 0
 preConfigIndex = -1
