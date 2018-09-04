@@ -2,22 +2,17 @@
 # -*- coding: utf-8 -*-
 import json
 import SSR_Detect
-import base64
 import time
 import os
-# print os.path.abspath('..')
 
-workPath = "E:\Nutstore\shadowsocks-gui-0.6.2-win-ia32\ShadowsocksR-4.7.0-win\\"
-# workPath = os.path.abspath('..') + '\\'
+# workPath = "E:\Nutstore\shadowsocks-gui-0.6.2-win-ia32\ShadowsocksR-4.7.0-win\\"
+workPath = os.path.abspath('..') + '\\'
 # print workPath
 ret = os.popen('tasklist|find "ShadowsocksR"')
 if ret.read().find('ShadowsocksR') == -1:
     print 'SSR is not running,will run SSR'
     print workPath+'ShadowsocksR-dotnet4.0.exe'
     os.popen('start /b '+ workPath + 'ShadowsocksR-dotnet4.0.exe')
-#     os.system('start /b '+ workPath + 'ShadowsocksR-dotnet4.0.exe')
-#     if ret.read() == '':
-#             print 'run SSR success'
 else:
     print 'SSR is running'
 
@@ -27,10 +22,6 @@ def LoopUpdateConfigFile(SSRinfo):
     configContent =  fopen.read()
     fopen.close()
     configJson = json.loads(configContent)
-    # print configJson['configs'][0] 
-    
-#     SSRinfo = SSR_Detect.CatchSSRinfo()
-#     print SSRinfo
     
     if SSRinfo[0] == configJson['configs'][-1]['server'] or configJson['configs'][-1]['remarks_base64'] == '5p2l6Ieq5Z-65Y-L55qEQnVmZg' : #if serverAddr or remarks same,then update
         if SSRinfo[1] != str(configJson['configs'][-1]['server_port']) or SSRinfo[5] != str(configJson['configs'][-1]['password']):
@@ -85,7 +76,6 @@ def DetectSsrServer():
     for x in range(3):
         ret =os.popen(workPath + 'curl --socks5 127.0.0.1:1080 https://google.com -k')
         tempStdout = ret.read()
-#         print 'curl stdout = ' + tempStdout
         print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
         if tempStdout == '':
             print '[######cannot connect to google[-1]######]'
